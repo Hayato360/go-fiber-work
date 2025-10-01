@@ -81,3 +81,40 @@ func GetDeletedDog(c *fiber.Ctx) error  {
 		"count":   len(dogs),
 	})
 }
+
+func GetDogsJson(c *fiber.Ctx) error {
+	db := database.DBConn
+	var dogs []m.Dogs
+
+	db.Find(&dogs) //10ตัว
+
+	var dataResults []m.DogsRes
+	for _, v := range dogs { //1 inet 112 //2 inet1 113
+		typeStr := ""
+		if v.DogID == 111 {
+			typeStr = "red"
+		} else if v.DogID == 113 {
+			typeStr = "green"
+		} else if v.DogID == 999 {
+			typeStr = "pink"
+		} else {
+			typeStr = "no color"
+		}
+
+		d := m.DogsRes{
+			Name:  v.Name,  //inet
+			DogID: v.DogID, //112
+			Type:  typeStr, //no color
+		}
+		dataResults = append(dataResults, d)
+		// sumAmount += v.Amount
+	}
+
+
+	r := m.ResultData{
+		Data:  dataResults,
+		Name:  "golang-test",
+		Count: len(dogs), //หาผลรวม,
+	}
+	return c.Status(200).JSON(r)
+}

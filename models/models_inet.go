@@ -14,6 +14,12 @@ type DogsRes struct {
 	Type  string `json:"type"`
 }
 
+type ResultData struct {
+	Data  []DogsRes `json:"data"`
+	Name  string    `json:"name"`
+	Count int       `json:"count"`
+}
+
 type Company struct {
 	gorm.Model
 	Name        string `json:"name" gorm:"type:varchar(100);unique;not null" validate:"required,min=2,max=100"`
