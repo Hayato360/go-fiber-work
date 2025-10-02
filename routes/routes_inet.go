@@ -12,11 +12,12 @@ func InetRoutes(app *fiber.App) {
 	{
 		middleware := basicauth.New(basicauth.Config{
 			Users: map[string]string{
-				"admin": "123456",
+				"gofiber": "21022566",
 			},
 		})
 		v1 := api.Group("/v1")
 		{
+			v1.Post("/mock", middleware , c.CreateMockData)
 			dog := v1.Group("/dog")
 			{
 				dog.Get("/", middleware, c.GetDogs)
