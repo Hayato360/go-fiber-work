@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"go-fiber-work/database"
 	m "go-fiber-work/models"
+	"go-fiber-work/routes"
 
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/driver/mysql"
@@ -17,7 +18,7 @@ func initDatabase() {
 		"",
 		"127.0.0.1",
 		"3306",
-		"golang_test",
+		"golang_test2",
 	)
 
 	var err error
@@ -34,5 +35,6 @@ func initDatabase() {
 func main() {
 	app := fiber.New()
 	initDatabase()
-	routes.Ine
+	routes.InetRoutes(app)
+	app.Listen(":3000")
 }
